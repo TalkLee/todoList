@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name='viewport' content='width=device-width,initial-scale=1'>
+    <title>
+        TodoList MVC jQuery
+    </title>
+    <link rel="stylesheet" href="./index.css">
+    <script src="./jquery-1.12.3.min.js" charset="utf-8"></script>
+</head>
+<body>
+    <div class="app">
+        <header>
+            <input type="checkbox" id="toggleAll">
+            <label for="toggleAll"></label>
+            <input type="text" class='newTask' placeholder="新建任务">
+        </header>
+        <div class="taskList">
+            <!--   初始状态下，任务DOM不显示
+                    以下为任务DOM结构
+                <li>
+                    <input type="checkbox" class='toggle'>
+                    <label type="text" class='task'></label>
+                </li>
+            -->
+        </div>
+        <footer>
+            <span class='unCompletedNum'>0</span> item left
+            <span class='filters'>
+                <a class='All' href='javascript: void(0);'>All</a>
+                <a class='Active' href='javascript: void(0);'>Active</a>
+                <a class='Completed' href='javascript: void(0);'>Completed</a>
+            </span>
+            <a class="deleteCompleted" href='#'>Clear completed</a>
+        </footer>
+    </div>
+</body>
+<script src='./main.js'></script>
+</html>
