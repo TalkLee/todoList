@@ -48,3 +48,9 @@ model的变化调用view的render方法，更新用户界面
 
 
 事件委托可以使得还未创建的子节点出触发指定的事件
+
+删除task 待分割代码到view和controler模块中
+
+技术难点：
+
+生成DOM节点，并可以触发mouseover事件

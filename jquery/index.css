@@ -68,3 +68,21 @@ label.completed {
 footer{
     padding: 10px 20px;
 }
+
+.taskList .task:hover .deleteTask{
+    display:inline-block;
+}
+
+.deleteTask{
+    display:none;
+    float:right;
+    color: #af5b5e;
+    margin-right:20px;
+    font-size:15px;
+    line-height:21px;
+    width:21px;
+    height:40px;
+}
+.deleteTask:after{
+    content: 'X';
+}

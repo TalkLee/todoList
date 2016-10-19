@@ -21,7 +21,7 @@ todoList.controler = {
         taskList.forEach(function(currentValue,index,arr) {
             num = currentValue.completed ? num : num + 1;
         });
-        console.log(num);
+        // console.log(num);
         return num;
     },
     hasCompletedTask: function() {
@@ -146,7 +146,7 @@ todoList.view = {
         var counter = 0 ; // 计数器，用于生成task的DOM元素时计数用
         $(context).html(''); // 清空之前的
         taskList.forEach(function(currentValue, index, arr) {
-            var taskDOM = "<span><input class='toggle' type='checkbox' id='task_" + counter + " '><label class='content' for='task_" + counter + " '></label></span>";
+            var taskDOM = "<span class='task'><input class='toggle' type='checkbox' id='task_" + counter + " '><label class='content' for='task_" + counter + " '></label><span class='deleteTask'></span></span>";
             $(taskDOM).appendTo($(context)); // 插入模版
             $(context + ' span>.toggle').last().attr('data-index',counter);
             counter++;
@@ -173,6 +173,7 @@ $('.newTask').keypress(function(event) {
         var inputTxt = event.target.value;
         if (inputTxt.length) {
             todoList.view.add(event.target.value);
+            event.target.value = '';
         } else { // 用户输入为空，提示用户输入
             if (!$('header .prompt').length) {
                 $('.newTask').after("<span class='prompt'>内容长度不能为0</span>");
@@ -194,17 +195,17 @@ $('.taskList').on('click','.toggle',function() {
 
 
 /**
- * hover触发显示隐藏removeTaskIcon
-*/
-
-addEvent($('.taskList')[0],'mouseover',function(event) {
-    alert(event.target);
-})
-
-/**
  *  删除task
  */
-$('.taskList').on('click','.removeIcon',function() {
+$('.taskList').on('click',function() {
+    if(event.target.className == 'deleteTask') {
+        todoList.model.taskList.splice($(event.target).siblings('input').attr('id').replace('task_',''),1);
+        window.localStorage.setItem('taskList',JSON.stringify(todoList.model.taskList));
+        $(event.target).parent().remove();
+        $('.unCompletedNum').html(todoList.model.taskList.length);
+
+    }
+
 
 })
 
@@ -237,10 +238,10 @@ $('.deleteCompleted').on('click',function() {
 // 以下为helper函数
 
 function addEvent(ele, type, handler) {
-    if (window.addEventListener) {
-        window.addEventListener(ele, type, handler);
+    if (ele.addEventListener) {
+        ele.addEventListener(type, handler,false);
     } else if (ele.attachEvent) {
-        ele.attachEvent(type, handler);
+        ele.attachEvent('on' + type, handler);
     } else {
         ele['on' + type] = handler
     }
